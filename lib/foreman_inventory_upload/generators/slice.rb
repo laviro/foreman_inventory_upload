@@ -25,6 +25,8 @@ module ForemanInventoryUpload
             first = true
             hosts_batch.each do |host|
               next unless host&.subscription_facet&.pools&.first
+              host.get_status(::ForemanInventoryUpload::InsightStatus).refresh!
+              host.refresh_global_status!
               @stream.comma unless first
               first = false if report_host(host)
             end

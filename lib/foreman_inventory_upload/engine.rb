@@ -36,6 +36,8 @@ module ForemanInventoryUpload
         sub_menu :top_menu, :foreman_inventory_upload, :caption => N_('RH Inventory'), :icon => 'fa fa-cloud-upload' do
           menu :top_menu, :level1, :caption => N_('Manage'), :url_hash => { controller: :'foreman_inventory_upload/react', :action => :index}
         end
+
+        register_custom_status(ForemanInventoryUpload::InsightStatus)
       end
     end
 
