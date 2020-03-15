@@ -53,6 +53,10 @@ module ForemanRhCloud
       end
     end
 
+    initializer 'foreman_rh_cloud.load_default_settings', :before => :load_config_initializers do |app|
+      require_dependency File.expand_path("../../../app/models/setting/rh_cloud.rb", __FILE__)
+    end
+
     initializer 'foreman_rh_cloud.register_gettext', after: :load_config_initializers do |_app|
       locale_dir = File.join(File.expand_path('../..', __dir__), 'locale')
       locale_domain = 'foreman_rh_cloud'
