@@ -1,8 +1,8 @@
 import { push } from 'connected-react-router';
+import URI from 'urijs';
 import API from 'foremanReact/API';
 import { get } from 'foremanReact/redux/API';
 import { addToast } from 'foremanReact/redux/actions/toasts';
-import { stringifyParams } from 'foremanReact/common/urlHelpers';
 import { insightsCloudUrl } from './InsightsCloudSyncHelpers';
 import { selectQueryParams } from './InsightsCloudSyncSelectors';
 import {
@@ -31,28 +31,41 @@ export const syncInsights = () => async dispatch => {
 };
 
 export const updateUrlQuery = (queryParams = {}) => (dispatch, getState) => {
+  const { page, perPage, query, sortBy, sortOrder } = {
+    ...selectQueryParams(getState()),
+    ...queryParams,
+  };
+  const uri = new URI();
+  uri.search({
+    page,
+    per_page: perPage,
+    search: query,
+    sort_by: sortBy,
+    sort_order: sortOrder,
+  });
+
   dispatch(
     push({
       pathname: INSIGHTS_PATH,
-      search: stringifyParams({
-        ...selectQueryParams(getState()),
-        ...queryParams,
-      }),
+      search: uri.search(),
     })
   );
 };
 
-export const fetchInsights = ({ page, perPage, query, sort } = {}) => {
-  const order =
-    sort && Object.keys(sort).length > 0 ? `${sort.by} ${sort.order}` : '';
-  return get({
+export const fetchInsights = ({
+  page,
+  perPage,
+  query,
+  sortBy,
+  sortOrder,
+} = {}) =>
+  get({
     key: INSIGHTS_HITS_API_KEY,
     url: INSIGHTS_HITS_PATH,
     params: {
       page,
       per_page: perPage,
       search: query,
-      order,
+      order: `${sortBy} ${sortOrder}`,
     },
   });
-};

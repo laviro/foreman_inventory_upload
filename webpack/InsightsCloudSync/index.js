@@ -8,6 +8,10 @@ import {
   selectPage,
   selectPerPage,
   selectSearch,
+  selectSortBy,
+  selectSortOrder,
+  selectHits,
+  selectItemCount,
 } from './InsightsCloudSyncSelectors';
 
 // map state to props
@@ -15,6 +19,10 @@ const mapStateToProps = state => ({
   query: selectSearch(state),
   page: selectPage(state),
   perPage: selectPerPage(state),
+  sortBy: selectSortBy(state),
+  sortOrder: selectSortOrder(state),
+  hits: selectHits(state),
+  itemCount: selectItemCount(state),
 });
 
 // map action dispatchers to props

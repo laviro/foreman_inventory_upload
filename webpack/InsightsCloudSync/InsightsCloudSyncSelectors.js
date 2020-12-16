@@ -1,5 +1,7 @@
 import URI from 'urijs';
 import { selectRouterLocation } from 'foremanReact/routes/RouterSelector';
+import { selectAPIResponse } from 'foremanReact/redux/API/APISelectors';
+import { INSIGHTS_HITS_API_KEY } from './InsightsCloudSyncConstants';
 
 export const selectQuery = state => selectRouterLocation(state).query;
 
@@ -21,5 +23,23 @@ export const selectPerPage = state => {
 export const selectQueryParams = state => ({
   page: selectPage(state),
   perPage: selectPerPage(state),
-  searchQuery: selectSearch(state),
+  query: selectSearch(state),
+  sortBy: selectSortBy(state),
+  sortOrder: selectSortOrder(state),
 });
+
+export const selectSortBy = state => {
+  const sortBy = selectQuery(state).sort_by;
+  return sortBy ? URI.decodeQuery(sortBy) : '';
+};
+
+export const selectSortOrder = state => {
+  const sortOrder = selectQuery(state).sort_order;
+  return sortOrder ? URI.decodeQuery(sortOrder) : '';
+};
+
+export const selectHits = state =>
+  selectAPIResponse(state, INSIGHTS_HITS_API_KEY).hits || [];
+
+export const selectItemCount = state =>
+  selectAPIResponse(state, INSIGHTS_HITS_API_KEY).itemCount || 0;

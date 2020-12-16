@@ -3,10 +3,11 @@ module InsightsCloud
     include Foreman::Controller::AutoCompleteSearch
 
     def index
-      hits = resource_base_search_and_page
+      hits = resource_base_search_and_page.preload(:host)
 
       render json: {
-        hits: hits,
+        hits: hits.map { |hit| hit.attributes.merge(hostname: hit.host&.name) },
+        itemCount: hits.count,
       }, status: :ok
     end
 
