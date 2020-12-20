@@ -2,6 +2,7 @@ import URI from 'urijs';
 import { selectRouterLocation } from 'foremanReact/routes/RouterSelector';
 import { selectAPIResponse } from 'foremanReact/redux/API/APISelectors';
 import { INSIGHTS_HITS_API_KEY } from './InsightsCloudSyncConstants';
+import { selectInsightsCloudSync } from '../ForemanRhCloudSelectors';
 
 export const selectQuery = state => selectRouterLocation(state).query;
 
@@ -40,6 +41,9 @@ export const selectSortOrder = state => {
 
 export const selectHits = state =>
   selectAPIResponse(state, INSIGHTS_HITS_API_KEY).hits || [];
+
+export const selectSelectedIds = state =>
+  selectInsightsCloudSync(state).table.selectedIds || [];
 
 export const selectItemCount = state =>
   selectAPIResponse(state, INSIGHTS_HITS_API_KEY).itemCount || 0;

@@ -13,6 +13,7 @@
         "skipWords": [
           "ansible",
           "camelcase",
+          "checkbox",
           "dropdown",
           "donut",
           "hostnames",
@@ -26,6 +27,7 @@
           "nowrap",
           "pid",
           "redhat",
+          "remediate",
           "remediations",
           "repo",
           "theforeman",

@@ -12,7 +12,9 @@ import {
   selectSortOrder,
   selectHits,
   selectItemCount,
+  selectSelectedIds,
 } from './InsightsCloudSyncSelectors';
+import { selectInsightsCloudSync } from '../ForemanRhCloudSelectors';
 
 // map state to props
 const mapStateToProps = state => ({
@@ -23,6 +25,8 @@ const mapStateToProps = state => ({
   sortOrder: selectSortOrder(state),
   hits: selectHits(state),
   itemCount: selectItemCount(state),
+  selectedIds: selectSelectedIds(state),
+  showSelectAllAlert: selectInsightsCloudSync(state).table.showSelectAllAlert,
 });
 
 // map action dispatchers to props
