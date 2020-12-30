@@ -1,5 +1,9 @@
 name: Ruby tests
-on: [pull_request]
+on:
+  push:
+    branches: [master, foreman_2_1, foreman_1_24]
+  pull_request:
+    branches: [master, foreman_2_1, foreman_1_24]
 
 defaults:
   run:
@@ -84,7 +88,6 @@ jobs:
           cp ../foreman_rh_cloud/config/Gemfile.lock.gh_test Gemfile.lock
           cp ../foreman_rh_cloud/config/package-lock.json.gh_test package-lock.json
       - name: Bundle install
-        if: steps.cache-bundler.outputs.cache-hit != 'true'
         run: |
           gem install bundler:1.16.1
           gem install qpid_messaging -v '1.39.0'
