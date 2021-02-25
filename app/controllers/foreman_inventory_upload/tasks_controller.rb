@@ -13,7 +13,8 @@ module ForemanInventoryUpload
           message: N_('Nothing to sync, there are no hosts with subscription for this organization.'),
         }, status: :method_not_allowed
       else
-        host_statuses = InventorySync::Async::InventoryFullSync.perform_now(selected_org)
+        task = ForemanTasks.sync_task(InventorySync::Async::InventoryFullSync, selected_org)
+        host_statuses = task.output[:host_statuses]
       end
 
       render json: {
