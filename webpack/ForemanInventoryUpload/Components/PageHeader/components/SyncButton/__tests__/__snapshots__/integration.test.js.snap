@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SyncButton integration test should flow: handleSync was called 1`] = `
+Object {
+  "action": Array [
+    Array [
+      Object {
+        "payload": Object {
+          "errorToast": [Function],
+          "handleSuccess": [Function],
+          "key": "INVENTORY_SYNC",
+          "url": "/foreman_inventory_upload/tasks",
+        },
+        "type": "API_POST",
+      },
+    ],
+  ],
+  "state": Object {
+    "API": Object {
+      "INVENTORY_SYNC": Object {
+        "payload": Object {
+          "url": "/foreman_inventory_upload/tasks",
+        },
+        "response": null,
+        "status": "PENDING",
+      },
+    },
+  },
+}
+`;

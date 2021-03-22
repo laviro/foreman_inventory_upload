@@ -1,12 +1,9 @@
-export const get = data => ({ type: 'get-some-type', ...data });
-export const put = data => ({ type: 'put-some-type', ...data });
-export const post = data => ({ type: 'post-some-type', ...data });
-export const patch = data => ({ type: 'patch-some-type', ...data });
+import apiReducer from './APIReducer';
 
-export const API = {
-  get: jest.fn(),
-  put: jest.fn(),
-  post: jest.fn(),
-  delete: jest.fn(),
-  patch: jest.fn(),
-};
+export const reducers = { API: apiReducer };
+
+export { actionTypeGenerator } from './APIActionTypeGenerator';
+export { API_OPERATIONS } from './APIConstants';
+export { APIMiddleware } from './APIMiddleware';
+export { default as API } from './API';
+export * from './APIActions';
